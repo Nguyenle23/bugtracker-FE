@@ -1,3 +1,135 @@
-h1 {
-    color: green;
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap");
+:root {
+    --gap: 10px;
+    --column-header-height: 46px;
+    --column-footer-height: 46px;
+    --column-border-radius: 5px;
+    --card-border-radius: 4px;
+    /*variable color */
+    --board-bg-color: #0079bf;
+    --appbar-gr-color: #0067a3;
+    --list-bg-color: #ebecf0;
+    --common-element-bg: rgba(255, 255, 255, .24);
+}
+
+body {
+    margin: 0;
+    font-family: "Nunito", sans-serif;
+    font-size: 20px;
+    line-height: 1.3rem;
+}
+
+.container {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 40px 50px 1fr;
+    background-color: var(--board-bg-color);
+}
+
+.navbar {
+    padding-left: var(--gap);
+    display: flex;
+    align-items: center;
+}
+
+.navbar.app {
+    background-color: var(--appbar-gr-color);
+    font-size: 1.5rem;
+}
+
+.navbar.board {
+    background-color: var(--board-bg-color);
+    font-size: 1.1rem;
+}
+
+.board-columns {
+    display: flex;
+    margin: 0 var(--gap) var(--gap);
+    overflow-x: auto;
+}
+
+.board-columns::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.board-columns::-webkit-scrollbar :horizontal {
+    height: 11px;
+}
+
+.board-columns::-webkit-scrollbar-thumb {
+    background-color: var(--common-element-bg);
+    border-radius: 8px;
+}
+
+.column {
+    flex: 0 0 auto;
+    width: 300px;
+    height: calc(100% - var(--gap));
+}
+
+.column:not(first-child) {
+    margin-left: var(--gap);
+}
+
+.column>* {
+    background-color: var(--list-bg-color);
+    color: #333;
+    padding: 0 8px;
+}
+
+.column header {
+    padding-left: 15px;
+    height: var(--column-header-height);
+    line-height: var(--column-header-height);
+    font-size: 16px;
+    font-weight: bold;
+    border-top-left-radius: var(--column-border-radius);
+    border-top-right-radius: var(--column-border-radius);
+}
+
+.column footer {
+    padding-left: var(--gap);
+    height: var(--column-footer-height);
+    line-height: var(--column-header-height);
+    border-bottom-left-radius: var(--column-border-radius);
+    border-bottom-right-radius: var(--column-border-radius);
+}
+
+.column ul {
+    list-style: none;
+    margin: 0;
+    max-height: cal(100% - var(--column-header-height) - var(--column-footer-height));
+    overflow-y: auto;
+}
+
+ul li {
+    background-color: white;
+    padding: var(--gap);
+    border-radius: var(--card-border-radius);
+    box-shadow: 0 1px 1px rga(0, 0, 0, 0.1);
+}
+
+ul::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+ul::-webkit-scrollbar :vertical {
+    width: 11px;
+}
+
+ul::-webkit-scrollbar-thumb {
+    background-color: darken(var(--list-bg-color), 15);
+    border-right: 5px solid var(--list-bg-color);
+}
+
+li:not(:last-child) {
+    margin-bottom: var(--gap);
+}
+
+li img {
+    display: block;
+    width: calc(100% + 2 * var(--gap));
+    margin: -var(--gap) 0 var(--gap) -var(--gap);
+    border-top-left-radius: var(--card-border-radius);
+    border-top-right-radius: var(--card-border-radius);
 }

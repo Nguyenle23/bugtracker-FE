@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.scss";
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
 
           <ul>
             <li>
-              <img src="https://res.cloudinary.com/nguyenle23/image/upload/v1647679022/ecommerce/avatar_kx04jf.png" alt="avatar" />
+              {/* <img src="https://res.cloudinary.com/nguyenle23/image/upload/v1647679022/ecommerce/avatar_kx04jf.png" alt="avatar" /> */}
               Title
             </li>
             <li>Description</li>
@@ -32,7 +32,71 @@ function App() {
 
           <ul>
             <li>
-              <img src="https://res.cloudinary.com/nguyenle23/image/upload/v1647679022/ecommerce/avatar_kx04jf.png" alt="avatar" />
+              {/* <img src="https://res.cloudinary.com/nguyenle23/image/upload/v1647679022/ecommerce/avatar_kx04jf.png" alt="avatar" /> */}
+              Title
+            </li>
+            <li>Description</li>
+            <li>Description</li>
+          </ul>
+
+          <footer>Add another card</footer>
+        </div>
+        <div className="column">
+          <header>
+            <h1>Board Columns</h1>
+          </header>
+
+          <ul>
+            <li>
+              {/* <img src="https://res.cloudinary.com/nguyenle23/image/upload/v1647679022/ecommerce/avatar_kx04jf.png" alt="avatar" /> */}
+              Title
+            </li>
+            <li>Description</li>
+            <li>Description</li>
+          </ul>
+
+          <footer>Add another card</footer>
+        </div>
+        <div className="column">
+          <header>
+            <h1>Board Columns</h1>
+          </header>
+
+          <ul>
+            <li>
+              {/* <img src="https://res.cloudinary.com/nguyenle23/image/upload/v1647679022/ecommerce/avatar_kx04jf.png" alt="avatar" /> */}
+              Title
+            </li>
+            <li>Description</li>
+            <li>Description</li>
+          </ul>
+
+          <footer>Add another card</footer>
+        </div>
+        <div className="column">
+          <header>
+            <h1>Board Columns</h1>
+          </header>
+
+          <ul>
+            <li>
+              {/* <img src="https://res.cloudinary.com/nguyenle23/image/upload/v1647679022/ecommerce/avatar_kx04jf.png" alt="avatar" /> */}
+              Title
+            </li>
+            <li>Description</li>
+            <li>Description</li>
+          </ul>
+
+          <footer>Add another card</footer>
+        </div>
+        <div className="column">
+          <header>
+            <h1>Board Columns</h1>
+          </header>
+
+          <ul>
+            <li>
+              {/* <img src="https://res.cloudinary.com/nguyenle23/image/upload/v1647679022/ecommerce/avatar_kx04jf.png" alt="avatar" /> */}
               Title
             </li>
             <li>Description</li>
@@ -64,39 +128,7 @@ function App() {
 
           <ul>
             <li>
-              <img src="https://res.cloudinary.com/nguyenle23/image/upload/v1647679022/ecommerce/avatar_kx04jf.png" alt="avatar" />
-              Title
-            </li>
-            <li>Description</li>
-            <li>Description</li>
-          </ul>
-
-          <footer>Add another card</footer>
-        </div>
-        <div className="column">
-          <header>
-            <h1>Board Columns</h1>
-          </header>
-
-          <ul>
-            <li>
-              <img src="https://res.cloudinary.com/nguyenle23/image/upload/v1647679022/ecommerce/avatar_kx04jf.png" alt="avatar" />
-              Title
-            </li>
-            <li>Description</li>
-            <li>Description</li>
-          </ul>
-
-          <footer>Add another card</footer>
-        </div>
-        <div className="column">
-          <header>
-            <h1>Board Columns</h1>
-          </header>
-
-          <ul>
-            <li>
-              <img src="https://res.cloudinary.com/nguyenle23/image/upload/v1647679022/ecommerce/avatar_kx04jf.png" alt="avatar" />
+              {/* <img src="https://res.cloudinary.com/nguyenle23/image/upload/v1647679022/ecommerce/avatar_kx04jf.png" alt="avatar" /> */}
               Title
             </li>
             <li>Description</li>

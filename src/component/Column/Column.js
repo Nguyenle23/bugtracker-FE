@@ -13,6 +13,7 @@ function Column() {
 
           <ul className="task-list">
             <Task />
+            <Task />
             <li className="task-item">Description</li>
             <li className="task-item">Description</li>
             <li className="task-item">Description</li>

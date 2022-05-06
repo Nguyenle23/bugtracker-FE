@@ -14,7 +14,7 @@ $list-bg-color: #ebecf0;
     flex: 0 0 auto;
     width: 300px;
     height: calc(100% - #{$gap});
-    &:not(first-child) {
+    &:not(:first-child) {
         margin-left: $gap;
     }
     >* {

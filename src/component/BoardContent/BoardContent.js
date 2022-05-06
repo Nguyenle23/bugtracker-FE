@@ -9,6 +9,8 @@ function BoardContent() {
       <div className="board-content">
         <Column />
         <Column />
+        <Column />
+        <Column />
       </div>
     )
 }

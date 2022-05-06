@@ -11,8 +11,8 @@ li.task-item {
     padding: $gap;
     border-radius: $card-border-radius;
     box-shadow: 0 1px 1px rga(0, 0, 0, 0.1);
-    &:not(first-child) {
-        margin-left: $gap;
+    &:not(:first-child) {
+        margin-bottom: $gap;
     }
     img {
         display: block;

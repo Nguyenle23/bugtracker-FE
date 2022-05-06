@@ -9,6 +9,12 @@ $common-element-bg: rgba(255,
 255,
 .24);
 
+/*appbar + boardbar + boardcontent = 99 + 1vh for scrollbar*/
+
+$navbar-app-height: 5vh;
+$navbar-board-height: 6vh;
+$board-content-height: 88vh;
+
 /*Screen*/
 
 $screen-lg: 1201px;

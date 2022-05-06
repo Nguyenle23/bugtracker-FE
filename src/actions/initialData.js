@@ -8,7 +8,7 @@ export const initialData = {
                 title: 'To do column',
                 cardOrder: ['card-1', 'card-2', 'card-3', 'card-4', 'card-5', 'card-6', 'card-7'],
                 cards: [
-                    { id: 'card-1', boardId: 'board-1', columnId: 'column-1', title: 'Title card 1', cover: 'https://yt3.ggpht.com/ytc/AKedOLR5tPn48XILzSnBkasyAWHS47apUIsAVLucwBB_-w=s48-c-k-c0x00ffffff-no-rj', },
+                    { id: 'card-1', boardId: 'board-1', columnId: 'column-1', title: 'Title card 1', cover: 'https://photo2.tinhte.vn/data/attachment-files/2022/04/5962561__DSC5069.jpg', },
                     { id: 'card-2', boardId: 'board-1', columnId: 'column-1', title: 'Title card 2', cover: null, },
                     { id: 'card-3', boardId: 'board-1', columnId: 'column-1', title: 'Title card 3', cover: null, },
                     { id: 'card-4', boardId: 'board-1', columnId: 'column-1', title: 'Title card 4', cover: null, },

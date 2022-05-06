@@ -13,7 +13,7 @@ function App() {
 
           <ul>
             <li>
-              {/* <img src="https://res.cloudinary.com/nguyenle23/image/upload/v1647679022/ecommerce/avatar_kx04jf.png" alt="avatar" /> */}
+              <img src="https://trungquandev.com/wp-content/uploads/2021/01/trungquandev-avatar-2021.jpg" alt="avatar" />
               Title
             </li>
             <li>Description</li>

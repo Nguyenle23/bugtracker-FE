@@ -9,7 +9,6 @@ function Column(props) {
   const {column, onCardDrop} = props;
   const cards = mapOrder(column.cards, column.cardOrder, 'id')
 
-
   return (
       <div className="column"> 
         <header className="column-drag-handle">

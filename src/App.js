@@ -8,7 +8,7 @@ import BoardContent from './component/BoardContent/BoardContent.js';
 
 function App() {
   return (
-    <div className="container">
+    <div className="content">
       <AppBar />
       <BoardBar />
       <BoardContent />

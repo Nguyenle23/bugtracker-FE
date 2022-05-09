@@ -1,7 +1,7 @@
 
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { Container, Draggable } from 'react-smooth-dnd';
-import { Dropdown, Form } from 'react-bootstrap';
+import { Dropdown, Form, Button } from 'react-bootstrap';
 
 import './Column.scss';
 import Card from '../Card/Card.js';
@@ -18,12 +18,17 @@ function Column(props) {
   const toggleShowConfirmModal = () => setShowConfirmModal(!showConfirmModal);
 
   const [columnTitle, setColumnTitle] = useState('');
-  const handleColumnTitleChange = useCallback((e) => {
-    setColumnTitle(e.target.value);
-    return () => {
-      setColumnTitle('');
-    }
-  }, []);
+  const handleColumnTitleChange = (e) => setColumnTitle(e.target.value);
+
+  const [openNewCardForm, setOpenNewCardForm] = useState(false);
+  const toggleOpenNewCardForm = () => {
+    setOpenNewCardForm(!openNewCardForm);
+  }
+
+  const inputFocus = useRef(null);
+
+  const [newCardTitle, setNewCardTitle] = useState('');
+  const onNewCardChangeTitle = (e) => setNewCardTitle(e.target.value);
 
   useEffect(() =>{
     setColumnTitle(column.title);
@@ -31,6 +36,13 @@ function Column(props) {
       setColumnTitle('');
     }
   }, [column.title])
+
+  useEffect(() => {
+    if (inputFocus && inputFocus.current) {
+      inputFocus.current.focus();
+      inputFocus.current.select();
+    }
+  }, [openNewCardForm]);
 
   const onConfirmModalAction = (type) => {
     console.log(type);
@@ -50,6 +62,30 @@ function Column(props) {
       title: columnTitle,
     };
     onUpdateColumn(newColumn);
+  }
+  const addNewCard = () => {
+    if (!newCardTitle) {
+      inputFocus.current.focus();
+      return
+    }
+
+    const newCardToAdd = {
+      id: Math.random().toString(36).substring(2, 5), //random character
+      boardId: column.boardId,
+      columnId: column.id,
+      title: newCardTitle.trim(),
+      cover: null,
+    }
+
+    const newColumn = {
+      ...column,
+      cards: [...column.cards, newCardToAdd],
+      cardOrder: [...column.cardOrder, newCardToAdd.id],
+    };
+    onUpdateColumn(newColumn);
+
+    setNewCardTitle('');
+    toggleOpenNewCardForm();
   }
 
   return (
@@ -84,34 +120,59 @@ function Column(props) {
         </header>
 
         <div className="card-list">
-        <Container
-          orientation="vertical" 
-          groupName="columns"
-          onDrop={dropResult => onCardDrop(column.id, dropResult)}
-          getChildPayload={index =>
-            cards[index]
+          <Container
+            orientation="vertical" 
+            groupName="columns"
+            onDrop={dropResult => onCardDrop(column.id, dropResult)}
+            getChildPayload={index =>
+              cards[index]
+            }
+            dragClass="card-ghost"
+            dropClass="card-ghost-drop"
+            dropPlaceholder={{                      
+              animationDuration: 150,
+              showOnTop: true,
+              className: 'card-drop-preview' 
+            }}
+            dropPlaceholderAnimationDuration={200}
+          >
+            {cards.map(card => (
+              <Draggable key={column.id}>
+                <Card card={card} />
+              </Draggable>
+            ))}
+          </Container>
+          {openNewCardForm &&
+            <div className="add-new-card">
+            <Form.Control 
+              size="sm" 
+              as="textarea" 
+              rows="3"
+              placeholder="Enter card title" 
+              className="textarea-enter-new-card"
+              ref={inputFocus}
+              value={newCardTitle}
+              onChange={onNewCardChangeTitle}
+              onKeyDown={(event) => (event.key === 'Enter' && addNewCard())}
+            />
+          </div>
           }
-          dragClass="card-ghost"
-          dropClass="card-ghost-drop"
-          dropPlaceholder={{                      
-            animationDuration: 150,
-            showOnTop: true,
-            className: 'card-drop-preview' 
-          }}
-          dropPlaceholderAnimationDuration={200}
-        >
-          {cards.map(card => (
-            <Draggable key={column.id}>
-              <Card card={card} />
-            </Draggable>
-          ))}
-        </Container>
         </div>
 
         <footer>
-          <div className="footer-actions">
+        {openNewCardForm &&
+          <div className="add-new-actions">
+            <Button variant="success" size="sm" onClick={addNewCard}>Add card</Button>
+            <span className="cancel-icon" onClick={toggleOpenNewCardForm}>
+              <i className="fa fa-close icon"/>
+            </span>
+          </div>
+        }
+        {!openNewCardForm &&
+          <div className="footer-actions" onClick={toggleOpenNewCardForm}>
             <i className="fa fa-plus icon" />Add another card
           </div>
+        }
         </footer>
 
         <ConfirmModal 

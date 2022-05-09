@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef, useCallback} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { Container, Draggable } from 'react-smooth-dnd';
 import { Container as BoostrapContainer, Row, Col, Form, Button } from 'react-bootstrap';
 import {isEmpty} from 'lodash';
@@ -13,12 +13,13 @@ function BoardContent() {
   const [board, setBoard] = useState({});
   const [columns, setColumns] = useState([]);
   const [openNewColumnForm, setOpenNewColumnForm] = useState(false);
-
+  const toggleOpenNewColumnForm = () => {
+    setOpenNewColumnForm(!openNewColumnForm);
+  }
   const inputFocus = useRef(null);
 
   const [newColumnTitle, setNewColumnTitle] = useState('');
-
-  const onNewColumnChangeTitle = useCallback((e) => setNewColumnTitle(e.target.value), []);
+  const onNewColumnChangeTitle = (e) => setNewColumnTitle(e.target.value);
 
   useEffect(() => {
     const boardFromDB = initialData.boards.find(board => board.id === 'board-1');
@@ -72,10 +73,6 @@ function BoardContent() {
     }
   }
  
-  const toggleOpenNewColumnForm = () => {
-    setOpenNewColumnForm(!openNewColumnForm);
-  }
-
   const addNewColumn = () => {
     if (!newColumnTitle) {
       inputFocus.current.focus();
@@ -83,7 +80,7 @@ function BoardContent() {
     }
 
     const newColumnToAdd = {
-      id: Math.random().toString(36).substring(2, 5), //random character - remove when implement code api
+      id: Math.random().toString(36).substring(2, 5), //random character
       boardId: board.id,
       title: newColumnTitle.trim(),
       cardOrder: [],
@@ -139,7 +136,11 @@ function BoardContent() {
       >
         {columns.map(column => (
           <Draggable key={column.id}>
-            <Column column={column} onCardDrop={onCardDrop} onUpdateColumn={onUpdateColumn} />
+            <Column 
+              column={column} 
+              onCardDrop={onCardDrop} 
+              onUpdateColumn={onUpdateColumn} 
+            />
           </Draggable>
         ))}
       </Container>
@@ -166,7 +167,9 @@ function BoardContent() {
                 onKeyDown={(event) => (event.key === 'Enter' && addNewColumn())}
               />
               <Button variant="success" size="sm" onClick={addNewColumn}>Add column</Button>
-              <span className="cancel-new-column" onClick={toggleOpenNewColumnForm}><i className="fa fa-close icon"/></span>
+              <span className="cancel-icon" onClick={toggleOpenNewColumnForm}>
+                <i className="fa fa-close icon"/>
+              </span>
             </Col>
           </Row>
         }

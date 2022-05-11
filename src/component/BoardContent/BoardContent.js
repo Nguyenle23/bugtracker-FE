@@ -7,7 +7,7 @@ import './BoardContent.scss';
 import Column from '../Column/Column.js';
 import { mapOrder } from '../../utilities/sort.js';
 import { applyDrag } from '../../utilities/dragDrop';
-import { fetchBoard } from '../../actions/ApiCall/index.js';
+import { fetchBoard, createNewColumn } from '../../actions/ApiCall/index.js';
 
 function BoardContent() {
   const [board, setBoard] = useState({});
@@ -47,7 +47,6 @@ function BoardContent() {
     }
   }, [openNewColumnForm]);
 
-
   if (isEmpty(board)) {
     return <div className="not-found" style={{'padding': '10px', 'color': 'white'}}>Board not found</div>
   }
@@ -82,27 +81,27 @@ function BoardContent() {
     }
 
     const newColumnToAdd = {
-      id: Math.random().toString(36).substring(2, 5), //random character
       boardId: board._id,
-      title: newColumnTitle.trim(),
-      cardOrder: [],
-      cards: [],
+      title: newColumnTitle.trim()
     }
 
-    let newColumns = [...columns];
-    newColumns.push(newColumnToAdd);
-    setColumns(newColumns);
-
-    let newBoard = {...board}
-    newBoard.columnOrder = newColumns.map(column => column._id);
-    newBoard.columns = newColumns;
-    setBoard(newBoard);
-
-    setNewColumnTitle('');
-    toggleOpenNewColumnForm();
+    //Call api createNewColumn
+    createNewColumn(newColumnToAdd).then(newColumn => {
+      let newColumns = [...columns];
+      newColumns.push(newColumn);
+      setColumns(newColumns);
+  
+      let newBoard = {...board}
+      newBoard.columnOrder = newColumns.map(column => column._id);
+      newBoard.columns = newColumns;
+      setBoard(newBoard);
+  
+      setNewColumnTitle('');
+      toggleOpenNewColumnForm();
+    });
   }
 
-  const onUpdateColumn = (newColumnToUpdate) => {
+  const onUpdateColumnState = (newColumnToUpdate) => {
     const columnIdToUpdate = newColumnToUpdate._id;
 
     let newColumns = [...columns];
@@ -141,7 +140,7 @@ function BoardContent() {
             <Column 
               column={column} 
               onCardDrop={onCardDrop} 
-              onUpdateColumn={onUpdateColumn} 
+              onUpdateColumnState={onUpdateColumnState} 
             />
           </Draggable>
         ))}

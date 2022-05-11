@@ -7,7 +7,7 @@ import './BoardContent.scss';
 import Column from '../Column/Column.js';
 import { mapOrder } from '../../utilities/sort.js';
 import { applyDrag } from '../../utilities/dragDrop';
-import { initialData } from '../../actions/initialData.js';
+import { fetchBoard } from '../../actions/ApiCall/index.js';
 
 function BoardContent() {
   const [board, setBoard] = useState({});
@@ -22,17 +22,19 @@ function BoardContent() {
   const onNewColumnChangeTitle = (e) => setNewColumnTitle(e.target.value);
 
   useEffect(() => {
-    const boardFromDB = initialData.boards.find(board => board.id === 'board-1');
-    if (boardFromDB) {
-      setBoard(boardFromDB);
-      
-      //sort columns
-      // boardFromDB.columns.sort(function (a, b) {
-      //   return boardFromDB.columnOrder.indexOf(a.id) - boardFromDB.columnOrder.indexOf(b.id);
-      // })
-      
-      setColumns(mapOrder(boardFromDB.columns, boardFromDB.columnOrder, 'id'));
-    }
+    const boardId = '627a68b03a66af1245b3cd6a';
+    fetchBoard(boardId).then(board => {
+      setBoard(board);
+      setColumns(mapOrder(board.columns, board.columnOrder, '_id'));
+    })
+    // if (boardFromDB) {
+    //   setBoard(boardFromDB);
+    //   //sort columns
+    //   // boardFromDB.columns.sort(function (a, b) {
+    //   //   return boardFromDB.columnOrder.indexOf(a._id) - boardFromDB.columnOrder.indexOf(b._id);
+    //   // })
+    //   setColumns(mapOrder(boardFromDB.columns, boardFromDB.columnOrder, 'id'));
+    // }
     return () => {
       setBoard({});
     }
@@ -56,7 +58,7 @@ function BoardContent() {
     setColumns(newColumns);
 
     let newBoard = {...board}
-    newBoard.columnOrder = newColumns.map(column => column.id);
+    newBoard.columnOrder = newColumns.map(column => column._id);
     newBoard.columns = newColumns;
     setBoard(newBoard);
   }
@@ -65,9 +67,9 @@ function BoardContent() {
     if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
       let newColumns = [...columns];
 
-      let currentColumn = newColumns.find(column => column.id === columnId);
+      let currentColumn = newColumns.find(column => column._id === columnId);
       currentColumn.cards = applyDrag(currentColumn.cards, dropResult);
-      currentColumn.cardOrder = currentColumn.cards.map(card => card.id);
+      currentColumn.cardOrder = currentColumn.cards.map(card => card._id);
 
       setColumns(newColumns);
     }
@@ -81,7 +83,7 @@ function BoardContent() {
 
     const newColumnToAdd = {
       id: Math.random().toString(36).substring(2, 5), //random character
-      boardId: board.id,
+      boardId: board._id,
       title: newColumnTitle.trim(),
       cardOrder: [],
       cards: [],
@@ -92,7 +94,7 @@ function BoardContent() {
     setColumns(newColumns);
 
     let newBoard = {...board}
-    newBoard.columnOrder = newColumns.map(column => column.id);
+    newBoard.columnOrder = newColumns.map(column => column._id);
     newBoard.columns = newColumns;
     setBoard(newBoard);
 
@@ -101,10 +103,10 @@ function BoardContent() {
   }
 
   const onUpdateColumn = (newColumnToUpdate) => {
-    const columnIdToUpdate = newColumnToUpdate.id;
+    const columnIdToUpdate = newColumnToUpdate._id;
 
     let newColumns = [...columns];
-    const columIndexToUpdate = newColumns.findIndex(item => item.id === columnIdToUpdate);
+    const columIndexToUpdate = newColumns.findIndex(item => item._id === columnIdToUpdate);
     
     if (newColumnToUpdate._destroy) {
       //remove column
@@ -115,7 +117,7 @@ function BoardContent() {
     }
 
     let newBoard = {...board}
-    newBoard.columnOrder = newColumns.map(column => column.id);
+    newBoard.columnOrder = newColumns.map(column => column._id);
     newBoard.columns = newColumns;
     setBoard(newBoard);
     setColumns(newColumns);
@@ -135,7 +137,7 @@ function BoardContent() {
           }} 
       >
         {columns.map(column => (
-          <Draggable key={column.id}>
+          <Draggable key={column._id}>
             <Column 
               column={column} 
               onCardDrop={onCardDrop} 

@@ -12,7 +12,7 @@ import {selectAllInlineText, saveColumnTitle} from '../../utilities/contentEdita
 
 function Column(props) {
   const {column, onCardDrop, onUpdateColumn} = props;
-  const cards = mapOrder(column.cards, column.cardOrder, 'id');
+  const cards = mapOrder(column.cards, column.cardOrder, '_id');
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const toggleShowConfirmModal = () => setShowConfirmModal(!showConfirmModal);
@@ -72,7 +72,7 @@ function Column(props) {
     const newCardToAdd = {
       id: Math.random().toString(36).substring(2, 5), //random character
       boardId: column.boardId,
-      columnId: column.id,
+      columnId: column._id,
       title: newCardTitle.trim(),
       cover: null,
     }
@@ -80,7 +80,7 @@ function Column(props) {
     const newColumn = {
       ...column,
       cards: [...column.cards, newCardToAdd],
-      cardOrder: [...column.cardOrder, newCardToAdd.id],
+      cardOrder: [...column.cardOrder, newCardToAdd._id],
     };
     onUpdateColumn(newColumn);
 
@@ -123,7 +123,7 @@ function Column(props) {
           <Container
             orientation="vertical" 
             groupName="columns"
-            onDrop={dropResult => onCardDrop(column.id, dropResult)}
+            onDrop={dropResult => onCardDrop(column._id, dropResult)}
             getChildPayload={index =>
               cards[index]
             }
@@ -137,7 +137,7 @@ function Column(props) {
             dropPlaceholderAnimationDuration={200}
           >
             {cards.map(card => (
-              <Draggable key={column.id}>
+              <Draggable key={column._id}>
                 <Card card={card} />
               </Draggable>
             ))}

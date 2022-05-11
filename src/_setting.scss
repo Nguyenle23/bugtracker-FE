@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+
+/*color*/
+
+$gap: 10px;
+$board-bg-color: #0079bf;
+$input-border-color: #0079bf;
+$app-main-text-color: #333;
+$column-bg-color: #ebecf0;
+$alert-danger: #ee5253;
+$common-element-bg: rgba(255,
+255,
+255,
+.24);
+
+/*appbar + boardbar + boardcontent = 99 + 1vh for scrollbar*/
+
+$navbar-app-height: 5vh;
+$navbar-board-height: 6vh;
+$board-content-height: 88vh;
+$column-border-radius: 4px;
+
+/*Screen*/
+
+$screen-lg: 1201px;
+$screen-md: 992px;
+$screen-sm: 768px;
+$screen-phone: 480px;
